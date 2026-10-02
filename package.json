@@ -1,0 +1,53 @@
+{
+  "name": "sourdough",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "prepare": "effect-tsgo patch --oxlint",
+    "clean": "pnpm run clean:ws && git clean -xdf node_modules .turbo target",
+    "clean:ws": "turbo run clean --filter='!//'",
+    "dev": "pnpm with-env turbo run dev",
+    "build": "turbo run build",
+    "ox": "turbo run lint format",
+    "ox:fix": "turbo run format:fix",
+    "with-env": "cross-env-shell dotenvx run -f .env.$VERCEL_ENV --",
+    "deploy": "node tools/scripts/sync-vercel-env.ts preview && vercel deploy",
+    "deploy:prod": "node tools/scripts/sync-vercel-env.ts production && vercel deploy --prod"
+  },
+  "dependencies": {
+    "@sourdough/env": "workspace:*",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@dotenvx/dotenvx": "catalog:",
+    "@effect/tsgo": "0.46.1",
+    "@oxlint/plugins": "1.85.0",
+    "@shadcn/lint": "catalog:",
+    "@sourdough/config": "workspace:*",
+    "@types/node": "catalog:",
+    "cross-env": "catalog:",
+    "effect": "catalog:effect",
+    "eslint-plugin-turbo": "catalog:",
+    "lefthook": "^2.1.14",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:",
+    "portless": "file:./packages/portless-0.15.7.tgz",
+    "react-doctor": "^0.9.14",
+    "turbo": "^2.11.7",
+    "typescript": "catalog:",
+    "vercel": "^59.24.0"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "^24.21.0",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@12.3.4"
+}

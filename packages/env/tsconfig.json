@@ -1,0 +1,3 @@
+{
+  "extends": "@sourdough/config/tsconfig.base.json"
+}
