@@ -1,0 +1,24 @@
+{
+  "name": "@sourdough/backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "scripts": {
+    "dev": "convex dev",
+    "dev:setup": "convex dev --configure --until-success",
+    "typecheck": "tsc --noEmit -p convex/tsconfig.json",
+    "clean": "git clean -xdf node_modules .turbo dist coverage"
+  },
+  "dependencies": {
+    "convex": "catalog:",
+    "effect": "catalog:effect",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@sourdough/config": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}

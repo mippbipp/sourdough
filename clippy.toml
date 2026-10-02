@@ -1,0 +1,1 @@
+too-many-lines-threshold = 80 # a bit more than Tiger Style's 70 to account for multi-line function args

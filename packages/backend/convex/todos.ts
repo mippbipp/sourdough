@@ -1,0 +1,44 @@
+import { v } from "convex/values";
+
+import { query, mutation } from "./_generated/server";
+
+export const getAll = query({
+  handler: (ctx) => ctx.db.query("todos").collect(),
+});
+
+export const create = mutation({
+  args: {
+    text: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const newTodoId = await ctx.db.insert("todos", {
+      text: args.text,
+      completed: false,
+    });
+
+    return ctx.db.get("todos", newTodoId);
+  },
+});
+
+export const toggle = mutation({
+  args: {
+    id: v.id("todos"),
+    completed: v.boolean(),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch("todos", args.id, { completed: args.completed });
+
+    return { success: true };
+  },
+});
+
+export const deleteTodo = mutation({
+  args: {
+    id: v.id("todos"),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.delete("todos", args.id);
+
+    return { success: true };
+  },
+});
