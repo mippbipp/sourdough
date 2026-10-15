@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "convex dev",
     "dev:setup": "convex dev --configure --until-success",
+    "typecheck": "tsc --noEmit -p convex/tsconfig.json",
     "clean": "git clean -xdf node_modules .turbo dist coverage"
   },
   "dependencies": {

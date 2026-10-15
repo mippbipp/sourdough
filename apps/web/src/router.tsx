@@ -1,11 +1,13 @@
 import { ConvexQueryClient } from "@convex-dev/react-query";
-import { env } from "@sourdough/env/web";
+import { createWebEnv } from "@sourdough/env/web";
 import { QueryClient } from "@tanstack/react-query";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query";
 
 import Loader from "./components/loader";
 import { routeTree } from "./routeTree.gen";
+
+const env = createWebEnv(import.meta.env);
 
 export function getRouter() {
   const convexUrl = env.VITE_CONVEX_URL;

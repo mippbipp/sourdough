@@ -33,6 +33,15 @@
       "dependsOn": ["//#lint:fix"],
       "cache": false,
     },
+    // Full `tsc --noEmit` for the root-owned files.
+    "//#typecheck": {
+      "command": ["tsc", "--noEmit", "-p", "tsconfig.json"],
+    },
+    // Full `tsc --noEmit` per package program
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "with": ["//#typecheck"],
+    },
 
     // `sourdough-rust` is the synthetic Cargo workspace package. Its built-in
     // `format` task is already uncached; `lint:fix`/`format:fix` are custom

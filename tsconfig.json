@@ -1,3 +1,6 @@
 {
-  "extends": "@sourdough/config/tsconfig.base.json"
+  "extends": "@sourdough/config/tsconfig.base.json",
+  // Root-owned files only
+  "include": ["*.config.ts", "tools/scripts/**/*.ts"],
+  "exclude": ["node_modules"]
 }

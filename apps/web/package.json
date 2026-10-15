@@ -5,6 +5,7 @@
   "scripts": {
     "build": "vite build",
     "serve": "vite preview",
+    "typecheck": "tsc --noEmit",
     "dev": "pnpm with-env portless run --name sourdough vite dev",
     "clean": "git clean -xdf node_modules .turbo dist .output .vercel/output .tanstack coverage",
     "with-env": "cross-env-shell dotenvx run -f ../../.env.$VERCEL_ENV --"
@@ -16,9 +17,9 @@
     "@sourdough/ui": "workspace:*",
     "@tailwindcss/vite": "^4.3.3",
     "@tanstack/react-query": "^5.103.2",
-    "@tanstack/react-router": "^1.170.38",
+    "@tanstack/react-router": "^1.170.44",
     "@tanstack/react-router-ssr-query": "^1.167.3",
-    "@tanstack/react-start": "^1.168.60",
+    "@tanstack/react-start": "^1.169.2",
     "@vercel/config": "^0.7.1",
     "convex": "catalog:",
     "lucide-react": "catalog:",

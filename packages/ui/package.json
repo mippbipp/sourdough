@@ -11,7 +11,8 @@
     "./postcss.config": "./postcss.config.mjs"
   },
   "scripts": {
-    "clean": "git clean -xdf node_modules .turbo dist coverage"
+    "clean": "git clean -xdf node_modules .turbo dist coverage",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

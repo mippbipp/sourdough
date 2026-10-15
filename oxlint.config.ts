@@ -5,7 +5,7 @@ export default defineConfig({
   extends: [recommended],
   options: {
     typeAware: true,
-    typeCheck: true,
+    typeCheck: true, // not full-tree build typechecking
     denyWarnings: true,
   },
   categories: {

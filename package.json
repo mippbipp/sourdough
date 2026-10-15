@@ -12,7 +12,7 @@
     "clean:ws": "turbo run clean --filter='!//'",
     "dev": "pnpm with-env turbo run dev",
     "build": "turbo run build",
-    "ox": "turbo run lint format",
+    "ox": "turbo run lint format typecheck",
     "ox:fix": "turbo run format:fix",
     "with-env": "cross-env-shell dotenvx run -f .env.$VERCEL_ENV --",
     "deploy": "node tools/scripts/sync-vercel-env.ts preview && vercel deploy",
