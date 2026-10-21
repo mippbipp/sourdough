@@ -31,7 +31,7 @@
     "@types/node": "catalog:",
     "cross-env": "catalog:",
     "effect": "catalog:effect",
-    "eslint-plugin-turbo": "catalog:",
+    "eslint-plugin-turbo": "^2.11.2",
     "lefthook": "^2.1.14",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
@@ -45,7 +45,7 @@
   "devEngines": {
     "runtime": {
       "name": "node",
-      "version": "^24.21.0",
+      "version": "24.21.0",
       "onFail": "download"
     }
   },
