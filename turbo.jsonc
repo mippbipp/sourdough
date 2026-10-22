@@ -13,6 +13,9 @@
       "outputs": ["dist/**", ".output/**", ".vercel/output/**"],
       "env": ["VITE_*", "CONVEX_DEPLOY_KEY", "VERCEL"],
     },
+    "test": {
+      "dependsOn": ["^build"],
+    },
     // oxlint/oxfmt run from the repo root, so they are Root Tasks.
     // `pnpm ox` and `pnpm ox:fix` are the only entry points.
     // `lint` and `format` are independent checks, so they stay
@@ -82,12 +85,7 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "env": [
-        "VITE_*",
-        "PORTLESS_URL",
-        "PORTLESS_TAILSCALE",
-        "PORTLESS_TAILSCALE_URL",
-      ],
+      "env": ["VITE_*", "PORTLESS_URL"],
     },
     "clean": {
       "cache": false,

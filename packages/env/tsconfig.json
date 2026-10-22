@@ -1,3 +1,6 @@
 {
-  "extends": "@sourdough/config/tsconfig.base.json"
+  "extends": "@sourdough/config/tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true
+  }
 }

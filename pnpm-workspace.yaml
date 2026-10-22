@@ -29,10 +29,17 @@ catalog:
 
 catalogs:
   effect:
+    "@effect/platform-node": 4.0.0
     "@effect/vitest": 4.0.0
     effect: 4.0.0
 
 minimumReleaseAge: 1440
+
+# @effect/platform-node@4.0.0 declares `@effect/platform-node-shared: ^4.0.0`.
+# Later shared patches target newer effect APIs than the pinned effect 4.0.0,
+# so keep the shared package on the matching 4.0.0 release.
+overrides:
+  "@effect/platform-node-shared": 4.0.0
 
 minimumReleaseAgeExclude:
   - "@shadcn/lint@0.2.0"

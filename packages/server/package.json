@@ -1,0 +1,29 @@
+{
+  "name": "@sourdough/server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "clean": "git clean -xdf node_modules .turbo dist coverage",
+    "dev": "pnpm with-env portless run --name sourdough-server node --watch src/index.ts",
+    "start": "pnpm with-env node src/index.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "with-env": "cross-env-shell dotenvx run -f ../../.env.$VERCEL_ENV --"
+  },
+  "dependencies": {
+    "@effect/platform-node": "catalog:effect",
+    "@sourdough/contracts": "workspace:*",
+    "effect": "catalog:effect"
+  },
+  "devDependencies": {
+    "@effect/vitest": "catalog:effect",
+    "@sourdough/config": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^5.0.2"
+  }
+}

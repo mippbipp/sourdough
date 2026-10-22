@@ -244,6 +244,29 @@ export default defineConfig({
       },
     },
     {
+      // server entrypoint: the top-level runMain launches the process,
+      // it is not test setup code
+      files: ["packages/server/src/index.ts"],
+      rules: {
+        "vitest/require-hook": "off",
+      },
+    },
+    {
+      files: ["**/*.test.ts", "**/test/**/*.ts"],
+      rules: {
+        // @effect/vitest layer() owns setup and teardown internally
+        "vitest/no-importing-vitest-globals": "off",
+        // @effect/vitest layer() owns setup and teardown internally
+        "vitest/require-hook": "off",
+        // Effect-integrated assert replaces expect.hasAssertions.
+        "vitest/prefer-expect-assertions": "off",
+        "effecttsgo/strict-effect-provide": "off",
+        // shared test helpers are plain data functions, so a data-last overload
+        // has nothing to dualize
+        "effecttsgo/missing-pipeable-signature": "off",
+      },
+    },
+    {
       files: ["**/*.tsx"],
       rules: {
         "eslint/func-style": "off",
