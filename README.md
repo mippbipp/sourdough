@@ -81,6 +81,17 @@ import { Button } from "@sourdough/ui/components/button";
 
 If you want to add app-specific blocks instead of shared primitives, run the shadcn CLI from `apps/web`.
 
+### Tuning motion with DialKit
+
+`pnpm dev` serves a motion lab at `/lab`, linked from the header. It renders `InviteCard` next to a [DialKit](https://dialkit.dev) panel so you can tune its animation by eye. Production builds return 404 for `/lab` and leave DialKit and the lab page out of the bundle.
+
+- `apps/web/src/components/invite-card-motion.ts` holds the shipped values. The panel's defaults come from it.
+- `apps/web/src/lab/motion-lab.tsx` holds the panel and feeds live values to the component through its `motionValues` prop. The component never imports DialKit.
+
+The loop: play the animation, adjust it in the panel, save a version per candidate, press Copy in the panel, and paste the result to your agent. The agent writes the values into `invite-card-motion.ts`. Press **Reset to code values** afterwards to check the panel matches the code. The panel persists to `localStorage` under `dialkit:invite-card`, so tuning survives reloads.
+
+To tune another component, copy the pattern: a values module, an override prop, and a panel in the lab. The `dialkit` agent skill has the full workflow.
+
 ## Rust workspace
 
 The repo root holds a virtual Cargo workspace. `Cargo.toml` sets `[workspace.metadata] name = "sourdough-rust"`. That name is the identity Turborepo uses in its package graph. This follows the upstream [Turborepo Rust guide](https://turborepo.dev/docs/guides/tools/rust). `turbo.jsonc` opts in with `experimentalCargoWorkspaces` and `experimentalTaskCommand`, so each crate shows up as a filterable package alongside the JS ones.

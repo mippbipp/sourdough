@@ -3,6 +3,8 @@ import { Link } from "@tanstack/react-router";
 const links = [
   { to: "/", label: "Home" },
   { to: "/todos", label: "Todos" },
+  // /lab is dev only (see routes/lab.tsx)
+  ...(import.meta.env.DEV ? ([{ to: "/lab", label: "Lab" }] as const) : []),
 ] as const;
 
 export default function Header() {

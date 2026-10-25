@@ -80,7 +80,11 @@ export default defineConfig({
 
     // --- js plugin preferences ---
 
-    "turbo/no-undeclared-env-vars": "error",
+    "turbo/no-undeclared-env-vars": [
+      "error",
+      // Vite's built-in import.meta.env flags are compile-time constants, not env vars
+      { allowList: ["^(DEV|PROD|SSR|MODE|BASE_URL)$"] },
+    ],
 
     // --- shadcn design-system rules (https://github.com/shadcn-ui/lint) ---
     // no-raw-colors and no-inline-styles stay enabled inside the component
