@@ -8,38 +8,23 @@ allowBuilds:
   msgpackr-extract: true
 
 catalog:
-  "@dotenvx/dotenvx": 2.29.0
-  "@shadcn/lint": 0.2.0
+  "@dotenvx/dotenvx": 2.38.2
   cross-env: 10.1.0
-  oxfmt: 0.70.0
-  oxlint: 1.85.0
-  oxlint-tsgolint: 7.0.2003
-  zod: ^4.6.5
+  zod: ^4.6.7
   typescript: ^7.0.2
-  "@types/node": ^26.6.2
-  lucide-react: ^1.47.0
+  "@types/node": ^26.6.5
+  lucide-react: ^1.61.0
   next-themes: ^0.4.6
-  react: ^19.3.0
-  react-dom: ^19.3.0
+  react: ^19.3.1
+  react-dom: ^19.3.1
   sonner: ^2.0.8
   tailwindcss: ^4.3.3
-  convex: ^1.46.0
+  convex: ^1.48.0
   "@types/react": ^19.3.0
   "@types/react-dom": ^19.3.0
 
 catalogs:
   effect:
-    "@effect/platform-node": 4.0.0
-    "@effect/vitest": 4.0.0
-    effect: 4.0.0
-
-minimumReleaseAge: 1440
-
-# @effect/platform-node@4.0.0 declares `@effect/platform-node-shared: ^4.0.0`.
-# Later shared patches target newer effect APIs than the pinned effect 4.0.0,
-# so keep the shared package on the matching 4.0.0 release.
-overrides:
-  "@effect/platform-node-shared": 4.0.0
-
-minimumReleaseAgeExclude:
-  - "@shadcn/lint@0.2.0"
+    "@effect/platform-node": 4.0.6
+    "@effect/vitest": 4.0.6
+    effect: 4.0.6

@@ -67,6 +67,8 @@ export default defineConfig({
       { packageAliases: ["@sourdough/"] },
     ],
     "anti-slop-effect/prefer-effect-match": "error",
+    // Maintainers rule aimed at published API stability; these packages are private.
+    "effecttsgo/api-stability-leak": "off",
     // --- not applicable in codebase ---
     "unicorn/throw-new-error": "off", // Effect errors are values (Schema.TaggedError), never thrown
     "import/named": "off",
@@ -205,6 +207,19 @@ export default defineConfig({
         "effecttsgo/global-console": "off",
         "effecttsgo/node-builtin-import": "off",
         "effecttsgo/process-env": "off",
+        // Plain Node scripts; native array, record, and string methods are fine.
+        "effecttsgo/prefer-effect-array": "off",
+        "effecttsgo/prefer-effect-record": "off",
+        "effecttsgo/prefer-effect-string": "off",
+      },
+    },
+    {
+      files: ["apps/web/**/*.ts", "apps/web/**/*.tsx"],
+      rules: {
+        // React components use native array and string methods.
+        "effecttsgo/prefer-effect-array": "off",
+        "effecttsgo/prefer-effect-record": "off",
+        "effecttsgo/prefer-effect-string": "off",
       },
     },
     {

@@ -21,7 +21,13 @@
     "types": ["node"],
     "plugins": [
       {
-        "name": "@effect/language-service"
+        "name": "@effect/language-service",
+        "allowedUnstableApis": [
+          "effect/http-api",
+          "effect/http",
+          "@effect/platform-node",
+          "@effect/vitest"
+        ]
       }
     ]
   }
