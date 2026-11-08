@@ -3,7 +3,21 @@
   "compilerOptions": {
     "noEmit": true,
     "types": ["node", "vitest/globals"],
-    "lib": ["ESNext"]
+    "lib": ["ESNext"],
+    "plugins": [
+      {
+        "name": "@effect/language-service",
+        "allowedUnstableApis": [
+          "effect/ai",
+          "effect/cli",
+          "effect/http-api",
+          "effect/http",
+          "effect/testing",
+          "@effect/platform-node",
+          "@effect/vitest"
+        ]
+      }
+    ]
   },
   "include": ["src/**/*.ts", "test/**/*.ts", "vitest.config.ts"],
   "exclude": ["node_modules"]

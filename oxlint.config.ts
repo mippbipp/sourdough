@@ -36,8 +36,13 @@ export default defineConfig({
       name: "anti-slop-effect",
       specifier: "./tools/oxlint/anti-slop/effect/index.ts",
     },
+    "./tools/oxlint/effect-tests/index.ts",
   ],
   rules: {
+    // --- local js plugin preferences ---
+
+    "effect-tests/no-manual-effect-runtime-in-tests": "error",
+
     // --- anti-slop js plugin preferences ---
 
     "oxc/no-accumulating-spread": "error",
@@ -263,11 +268,21 @@ export default defineConfig({
       },
     },
     {
-      // server entrypoint: the top-level runMain launches the process,
-      // it is not test setup code
-      files: ["packages/server/src/index.ts"],
+      // server entrypoints: the top-level runMain launches the process,
+      // it is not test setup code, and providing layers there is correct
+      files: ["packages/server/src/index.ts", "packages/server/src/bin.ts"],
       rules: {
         "vitest/require-hook": "off",
+        "effecttsgo/strict-effect-provide": "off",
+      },
+    },
+    {
+      // defineContract, implement and the to* projections are constructors
+      // that take a whole definition, not data-first combinators, so a
+      // data-last overload has nothing to pipe
+      files: ["packages/capability/src/**/*.ts"],
+      rules: {
+        "effecttsgo/missing-pipeable-signature": "off",
       },
     },
     {

@@ -4,6 +4,10 @@
     "noEmit": true
   },
   // Root-owned files only
-  "include": ["*.config.ts", "tools/scripts/**/*.ts"],
+  "include": [
+    "*.config.ts",
+    "tools/scripts/**/*.ts",
+    "tools/oxlint/effect-tests/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }

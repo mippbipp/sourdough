@@ -12,10 +12,12 @@
     "start": "pnpm with-env node src/index.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "with-env": "cross-env-shell dotenvx run -f ../../.env.$VERCEL_ENV --"
+    "with-env": "cross-env-shell dotenvx run -f ../../.env.$VERCEL_ENV --",
+    "cli": "node src/bin.ts"
   },
   "dependencies": {
     "@effect/platform-node": "catalog:effect",
+    "@sourdough/capability": "workspace:*",
     "@sourdough/contracts": "workspace:*",
     "effect": "catalog:effect"
   },
