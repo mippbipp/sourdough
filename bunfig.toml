@@ -1,0 +1,16 @@
+# dotenvx owns the .env files. Bun's auto-load would put their encrypted
+# values into process.env, where they shadow the values dotenvx decrypts.
+env = false
+
+[install]
+# Skip versions published in the last 24 hours.
+minimumReleaseAge = 86400
+minimumReleaseAgeExcludes = [
+  "@hona/strobe@0.32.0",
+  "@hona/strobe-darwin-arm64@0.32.0",
+  "@hona/strobe-darwin-x64@0.32.0",
+  "@hona/strobe-linux-arm64@0.32.0",
+  "@hona/strobe-linux-x64@0.32.0",
+  "@hona/strobe-win32-arm64@0.32.0",
+  "@hona/strobe-win32-x64@0.32.0",
+]

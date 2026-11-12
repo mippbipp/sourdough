@@ -8,15 +8,15 @@
   },
   "scripts": {
     "clean": "git clean -xdf node_modules .turbo dist coverage",
-    "dev": "pnpm with-env portless run --name sourdough-server node --watch src/index.ts",
-    "start": "pnpm with-env node src/index.ts",
-    "test": "vitest run",
+    "dev": "bun run with-env portless run --name sourdough-server bun --watch src/index.ts",
+    "start": "bun run with-env bun src/index.ts",
+    "test": "bun --bun vitest run",
     "typecheck": "tsc --noEmit",
     "with-env": "cross-env-shell dotenvx run -f ../../.env.$VERCEL_ENV --",
-    "cli": "node src/bin.ts"
+    "cli": "bun src/bin.ts"
   },
   "dependencies": {
-    "@effect/platform-node": "catalog:effect",
+    "@effect/platform-bun": "catalog:effect",
     "@sourdough/capability": "workspace:*",
     "@sourdough/contracts": "workspace:*",
     "effect": "catalog:effect"
@@ -24,8 +24,8 @@
   "devDependencies": {
     "@effect/vitest": "catalog:effect",
     "@sourdough/config": "workspace:*",
-    "@types/node": "catalog:",
+    "@types/bun": "catalog:",
     "typescript": "catalog:",
-    "vitest": "^5.0.2"
+    "vitest": "catalog:"
   }
 }

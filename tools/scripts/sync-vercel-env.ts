@@ -5,7 +5,7 @@ import { config as dotenvxConfig } from "@dotenvx/dotenvx";
 
 // dotenvx file that owns the key list for each Vercel environment. Values
 // are decrypted in-process via dotenvx, so run directly, e.g.
-// `pnpm run env:preview` / `pnpm run env:production` (no `with-env` needed).
+// `bun run deploy` / `bun run deploy:prod` (no `with-env` needed).
 const ENV_FILES = {
   development: [".env.development"],
   preview: [".env.development"],
@@ -14,7 +14,7 @@ const ENV_FILES = {
 
 const VALID_ENVIRONMENTS = new Set(Object.keys(ENV_FILES));
 
-const VERCEL_COMMAND = ["pnpm", "exec", "vercel"] as const;
+const VERCEL_COMMAND = ["bunx", "vercel"] as const;
 
 const SKIP_KEYS = new Set<string>();
 
@@ -107,7 +107,7 @@ for (const key of names) {
 
 if (missing.length > 0) {
   console.error(
-    `Missing or undecryptable values for: ${missing.join(", ")} (from ${existingFiles.join(", ")})\nEnsure .env.keys is present and the keys hold real values, e.g. \`pnpm dotenvx set KEY value -f .env.${environment}\`.`
+    `Missing or undecryptable values for: ${missing.join(", ")} (from ${existingFiles.join(", ")})\nEnsure .env.keys is present and the keys hold real values, e.g. \`bunx dotenvx set KEY value -f .env.${environment}\`.`
   );
   process.exit(1);
 }

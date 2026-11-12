@@ -40,7 +40,10 @@ export const makeMcpClient = Effect.fnUntraced(function* <A, E>(
     input: Parameters<typeof globalThis.fetch>[0],
     init?: RequestInit
   ): Promise<Response> => {
-    const request = input instanceof Request ? input : new Request(input, init);
+    const request =
+      input instanceof Request
+        ? input
+        : new Request(input instanceof URL ? input.href : input, init);
 
     if (sessionId !== null) {
       request.headers.set("Mcp-Session-Id", sessionId);

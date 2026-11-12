@@ -45,16 +45,14 @@
           with pkgs;
           mkShell {
             nativeBuildInputs = [
-              nodejs
-              pnpm
+              bun
               llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.agent-browser
               rustToolchain
               cargo-edit
             ];
 
             shellHook = ''
-              # Keep nix-provided node first, but allow pnpm's corepack pin to resolve correctly.
-              echo "sourdough dev shell: node $(node --version), pnpm $(pnpm --version)"
+              echo "sourdough dev shell: bun $(bun --version)"
             '';
           };
       }

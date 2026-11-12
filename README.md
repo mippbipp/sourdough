@@ -15,10 +15,11 @@ sourdough is starter turborepo template. React + TanStack Start frontend, Convex
 ## Getting started
 
 - Nix users: run `direnv allow` once so `.envrc` loads the flake toolchain and sets `VERCEL_ENV=development`.
+- Everyone else: install [Bun](https://bun.com) 1.4 or later.
 - The flake also provides the Rust toolchain (stable via rust-overlay, plus `cargo-edit`), so `cargo` and `rustc` are on `PATH` with no extra step.
 
 ```bash
-pnpm install
+bun install
 ```
 
 ## Environment setup
@@ -29,20 +30,20 @@ at the repo root. They are safe to commit; private keys stay in `.env.keys`
 
 ```bash
 # point dev at your Convex dev deployment
-pnpm dotenvx set VITE_CONVEX_URL <dev-url> -f .env.development
+bunx dotenvx set VITE_CONVEX_URL <dev-url> -f .env.development
 # point prod at your Convex prod deployment
-pnpm dotenvx set VITE_CONVEX_URL <prod-url> -f .env.production
+bunx dotenvx set VITE_CONVEX_URL <prod-url> -f .env.production
 ```
 
 `VERCEL_ENV` selects the file (defaults to `development` via `.envrc`);
-prefix any command with `pnpm with-env` to inject decrypted values.
+prefix any command with `bun run with-env` to inject decrypted values.
 
 ## Convex setup
 
 This project uses Convex as a backend. You'll need to set up Convex before running the app:
 
 ```bash
-pnpm --f backend run dev:setup
+bun run --filter @sourdough/backend dev:setup
 ```
 
 Follow the prompts to create a new Convex project and connect it to your application.
@@ -50,7 +51,7 @@ Follow the prompts to create a new Convex project and connect it to your applica
 Then, run the development server:
 
 ```bash
-pnpm dev
+bun run dev
 ```
 
 This starts the web app and `convex dev` together. The app talks to your Convex dev deployment.
@@ -83,7 +84,7 @@ If you want to add app-specific blocks instead of shared primitives, run the sha
 
 ### Tuning motion with DialKit
 
-`pnpm dev` serves a motion lab at `/lab`, linked from the header. It renders `InviteCard` next to a [DialKit](https://dialkit.dev) panel so you can tune its animation by eye. Production builds return 404 for `/lab` and leave DialKit and the lab page out of the bundle.
+`bun run dev` serves a motion lab at `/lab`, linked from the header. It renders `InviteCard` next to a [DialKit](https://dialkit.dev) panel so you can tune its animation by eye. Production builds return 404 for `/lab` and leave DialKit and the lab page out of the bundle.
 
 - `apps/web/src/components/invite-card-motion.ts` holds the shipped values. The panel's defaults come from it.
 - `apps/web/src/lab/motion-lab.tsx` holds the panel and feeds live values to the component through its `motionValues` prop. The component never imports DialKit.
@@ -104,9 +105,10 @@ To add a crate, create `crates/<name>/Cargo.toml`, add shared deps to `[workspac
 
 - Target: web
 - Config: `apps/web/vercel.ts` (typed IaC; edit here, not the dashboard)
+- Runtime: Vercel Functions run on Bun (`bunVersion: "1.4.x"`). Nitro reads that setting and emits a `bun1.4.x` function.
 - First CLI deploy only: `vercel link` (one-time, links this repo to the Vercel project)
-- Preview deploy: `pnpm run deploy` (syncs `.env.development` to the Preview env, then deploys)
-- Production deploy: `pnpm run deploy:prod` (syncs `.env.production` to the Production env, then deploys)
+- Preview deploy: `bun run deploy` (syncs `.env.development` to the Preview env, then deploys)
+- Production deploy: `bun run deploy:prod` (syncs `.env.production` to the Production env, then deploys)
 
 ## Project structure
 
@@ -129,10 +131,10 @@ sourdough/
 
 ## Available scripts
 
-- `pnpm dev`: Start all applications in development mode (env via dotenvx)
-- `pnpm build`: Build all applications
-- `pnpm ox` / `pnpm ox:fix`: Lint + format check / autofix across JS (oxlint, oxfmt) and Rust (clippy, rustfmt) via Turbo
-- `pnpm clean`: Workspace `clean` tasks plus `git clean` of `node_modules`, `.turbo`, and Rust `target/`
-- `pnpm with-env`: Run a command with decrypted dotenvx env, e.g. `pnpm with-env <cmd>`
-- `pnpm deploy`: Sync preview env, then create a Vercel preview deployment
-- `pnpm deploy:prod`: Sync production env, then deploy to Vercel production (the Vercel build pushes Convex functions)
+- `bun run dev`: Start all applications in development mode (env via dotenvx)
+- `bun run build`: Build all applications
+- `bun run ox` / `bun run ox:fix`: Lint + format check / autofix across JS (oxlint, oxfmt) and Rust (clippy, rustfmt) via Turbo
+- `bun run clean`: Workspace `clean` tasks plus `git clean` of `node_modules`, `.turbo`, and Rust `target/`
+- `bun run with-env`: Run a command with decrypted dotenvx env, e.g. `bun run with-env <cmd>`
+- `bun run deploy`: Sync preview env, then create a Vercel preview deployment
+- `bun run deploy:prod`: Sync production env, then deploy to Vercel production (the Vercel build pushes Convex functions)

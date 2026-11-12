@@ -1,4 +1,4 @@
-import { NodeServices } from "@effect/platform-node";
+import { BunServices } from "@effect/platform-bun";
 import { layer } from "@effect/vitest";
 import { Array as Arr, Effect, Layer, Option, Schema } from "effect";
 import { CliOutput, Command } from "effect/cli";
@@ -11,7 +11,7 @@ const TestLayer = Layer.mergeAll(
   TestConsole.layer,
   CliOutput.layer(CliOutput.defaultFormatter({ colors: false })),
   Greeter.layer
-).pipe(Layer.provideMerge(NodeServices.layer));
+).pipe(Layer.provideMerge(BunServices.layer));
 
 const run = <const Name extends string, Input, E, R, ContextInput>(
   command: Command.Command<Name, Input, ContextInput, E, R>,
@@ -87,7 +87,10 @@ layer(TestLayer)("toCommand", (it) => {
       });
 
       yield* run(command, ["rat"]);
-      assert.strictEqual(yield* lastLine, ">> hello rat");
+
+      const line = yield* lastLine;
+
+      assert.strictEqual(line, ">> hello rat");
 
       yield* run(command, ["rat", "--json"]);
 
@@ -109,12 +112,13 @@ layer(TestLayer)("toCommand", (it) => {
 
   it.effect("rejects an input field that collides with --json", () =>
     Effect.gen(function* () {
-      const error = yield* Effect.try(() =>
-        toCommand(reservedJson, { render: (output) => output })
-      ).pipe(Effect.flip);
+      const message = yield* Effect.try({
+        try: () => toCommand(reservedJson, { render: (output) => output }),
+        catch: String,
+      }).pipe(Effect.flip);
 
       assert.include(
-        String(error.cause),
+        message,
         "Input field `json` conflicts with the reserved `--json` flag"
       );
     })

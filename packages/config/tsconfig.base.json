@@ -23,9 +23,13 @@
       {
         "name": "@effect/language-service",
         "allowedUnstableApis": [
-          "effect/http-api",
+          "effect/ai",
+          "effect/cli",
           "effect/http",
-          "@effect/platform-node",
+          "effect/http-api",
+          "effect/rpc",
+          "effect/testing",
+          "@effect/platform-bun",
           "@effect/vitest"
         ]
       }

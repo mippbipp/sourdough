@@ -1,4 +1,4 @@
-import { NodeServices } from "@effect/platform-node";
+import { BunServices } from "@effect/platform-bun";
 import { layer } from "@effect/vitest";
 import { Array as Arr, Effect, Layer, Option, Schema } from "effect";
 import { CliOutput } from "effect/cli";
@@ -10,7 +10,7 @@ import { runCli } from "../src/cli.ts";
 const TestLayer = Layer.mergeAll(
   TestConsole.layer,
   CliOutput.layer(CliOutput.defaultFormatter({ colors: false }))
-).pipe(Layer.provideMerge(NodeServices.layer));
+).pipe(Layer.provideMerge(BunServices.layer));
 
 const decodeStatus = Schema.decodeUnknownEffect(
   Schema.fromJsonString(status.contract.output)

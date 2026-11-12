@@ -1,10 +1,10 @@
-import { NodeRuntime, NodeServices, NodeStdio } from "@effect/platform-node";
-import { Effect, Layer } from "effect";
+import { BunRuntime, BunServices, BunStdio } from "@effect/platform-bun";
+import { Effect } from "effect";
 
 import { runCli } from "./cli.ts";
 
 const program = runCli(process.argv.slice(2)).pipe(
-  Effect.provide(Layer.mergeAll(NodeServices.layer, NodeStdio.layer))
+  Effect.provide([BunServices.layer, BunStdio.layer])
 );
 
-NodeRuntime.runMain(program);
+BunRuntime.runMain(program);
