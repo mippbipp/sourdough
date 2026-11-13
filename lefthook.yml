@@ -14,6 +14,8 @@ pre-commit:
     - run: bunx dotenvx encrypt -f .env.development
       glob: ".env.development"
       stage_fixed: true
+    - run: gh actions-lock --verify-local
+      glob: ".github/workflows/*.{yml,yaml,lock}"
     - run: bun run ox:fix
       glob:
         - "*.{ts,tsx,js,jsx,mjs,cjs,json,jsonc,css}"
