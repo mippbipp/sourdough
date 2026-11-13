@@ -286,6 +286,14 @@ export default defineConfig({
       },
     },
     {
+      // strobe benches: `bench` is @hona/strobe's, not vitest's global, and
+      // the rule's fix adds a clashing `import { bench } from "vitest"`.
+      files: ["perf/**/*.bench.ts"],
+      rules: {
+        "vitest/prefer-importing-vitest-globals": "off",
+      },
+    },
+    {
       files: ["**/*.test.ts", "**/test/**/*.ts"],
       rules: {
         // @effect/vitest layer() owns setup and teardown internally

@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/@hona/strobe/schema/strobe.v1.json",
+  "build": {
+    "command": "bun run with-env vite build",
+    "cwd": "apps/web",
+    "output": "apps/web/.vercel/output",
+    "env": { "VERCEL_ENV": "development" }
+  },
+  "serve": {
+    "command": "VERCEL_ENV=development bun run with-env vite preview --host 127.0.0.1 --port {port} --strictPort",
+    "cwd": "apps/web",
+    "dir": "apps/web/.vercel/output/static"
+  }
+}
