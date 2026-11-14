@@ -1,7 +1,10 @@
-import { mergeProps } from "@base-ui/react/merge-props";
-import { useRender } from "@base-ui/react/use-render";
 import { Button } from "@sourdough/ui/components/button";
 import { cn } from "@sourdough/ui/lib/utils";
+import {
+  mergeProps,
+  renderElement,
+  type PartProps,
+} from "@ui-sdk/react/primitive";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
@@ -152,7 +155,6 @@ function AttachmentAction({
 }: React.ComponentProps<typeof Button>) {
   return (
     <Button
-      data-slot="attachment-action"
       type={type}
       variant={variant ?? "ghost"}
       size={size}
@@ -167,21 +169,19 @@ function AttachmentTrigger({
   render,
   type,
   ...props
-}: useRender.ComponentProps<"button">) {
-  return useRender({
-    defaultTagName: "button",
-    props: mergeProps<"button">(
+}: Omit<PartProps<"button">, "className"> & { className?: string }) {
+  return renderElement(
+    "button",
+    mergeProps(
       {
+        "data-slot": "attachment-trigger",
         type: render ? type : (type ?? "button"),
         className: cn("absolute inset-0 z-10 outline-none", className),
       },
       props
     ),
-    render,
-    state: {
-      slot: "attachment-trigger",
-    },
-  });
+    render
+  );
 }
 
 function AttachmentGroup({ className, ...props }: React.ComponentProps<"div">) {

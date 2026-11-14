@@ -9,6 +9,31 @@ When working on Convex code, **always read
 how to correctly use Convex APIs and patterns. The file contains rules that
 override what you may have learned about Convex from training data.
 
+## Using ui-sdk
+
+`@ui-sdk/react` and `@ui-sdk/core` are dependencies of `packages/ui`, so their
+docs live under `packages/ui/node_modules/@ui-sdk/react/docs/`.
+
+Before using ui-sdk, follow the `ui-sdk` skill (`.agents/skills/ui-sdk`) and read
+`packages/ui/node_modules/@ui-sdk/react/docs/llms.txt`. To build a new component,
+also search `core.md` in that folder by heading (it's over 300 KB, don't read it
+whole), and read `rendering.md` next to it.
+
+ui-sdk provides the behavior and shadcn provides the design:
+
+- Components in `packages/ui/src/components/` wrap ui-sdk parts and style them
+  with the shadcn (base-lyra) Tailwind classes and theme variables in
+  `packages/ui/src/styles/globals.css`.
+- Don't run `shadcn add` for interactive components, since it generates Base UI
+  wrappers. Build the component on ui-sdk instead. When shadcn has the same
+  component, copy its base-lyra classes so the look matches, then swap Base UI
+  state attributes for ui-sdk's (`data-highlighted` for `:focus`,
+  `data-destructive` for `data-[variant=destructive]`, and so on).
+- Markup-only components with no behavior (card, empty, skeleton) can still come
+  from `shadcn add`.
+- Tests for the wrappers live in `packages/ui/test/` (`bun run test` in
+  `packages/ui`).
+
 ## Learning more about Effect
 
 This repository uses the Effect Typescript library.

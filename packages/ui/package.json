@@ -12,11 +12,13 @@
   },
   "scripts": {
     "clean": "git clean -xdf node_modules .turbo dist coverage",
+    "test": "bun --bun vitest run",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@base-ui/react": "^1.9.0",
     "@shadcn/react": "^0.3.1",
+    "@ui-sdk/core": "^0.1.0-beta.1",
+    "@ui-sdk/react": "^0.1.0-beta.1",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.5.2",
     "lucide-react": "catalog:",
@@ -30,9 +32,14 @@
   "devDependencies": {
     "@sourdough/config": "workspace:*",
     "@tailwindcss/postcss": "^4.3.5",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.10",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "jsdom": "^31.0.0",
     "tailwindcss": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }

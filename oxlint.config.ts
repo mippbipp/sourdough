@@ -294,7 +294,12 @@ export default defineConfig({
       },
     },
     {
-      files: ["**/*.test.ts", "**/test/**/*.ts"],
+      files: [
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/test/**/*.ts",
+        "**/test/**/*.tsx",
+      ],
       rules: {
         // @effect/vitest layer() owns setup and teardown internally
         "vitest/no-importing-vitest-globals": "off",
@@ -306,6 +311,24 @@ export default defineConfig({
         // shared test helpers are plain data functions, so a data-last overload
         // has nothing to dualize
         "effecttsgo/missing-pipeable-signature": "off",
+      },
+    },
+    {
+      // React component tests drive the DOM through Testing Library, which is
+      // Promise-based; there is no Effect code under test here
+      files: ["packages/ui/test/**/*.ts", "packages/ui/test/**/*.tsx"],
+      rules: {
+        "effecttsgo/async-function": "off",
+        "effecttsgo/prefer-effect-array": "off",
+        "effecttsgo/new-promise": "off",
+        "effecttsgo/global-timers": "off",
+        // the default Vitest timeout applies to every test in the package
+        "vitest/require-test-timeout": "off",
+        // ui-sdk reads this global to turn development warnings into errors
+        "eslint/no-underscore-dangle": [
+          "error",
+          { allow: ["_id", "__UI_SDK_STRICT__"] },
+        ],
       },
     },
     {
