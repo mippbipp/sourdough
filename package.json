@@ -53,7 +53,7 @@
   "devDependencies": {
     "@dotenvx/dotenvx": "catalog:",
     "@effect/tsgo": "^0.67.7",
-    "@hona/strobe": "^0.32.0",
+    "@hona/strobe": "^0.44.0",
     "@oxlint/plugins": "^1.93.0",
     "@shadcn/lint": "^0.2.5",
     "@sourdough/config": "workspace:*",
