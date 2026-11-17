@@ -35,21 +35,21 @@ function DropdownMenuTrigger(props: React.ComponentProps<typeof MenuTrigger>) {
 function DropdownMenuContent({
   align = "start",
   alignOffset = 0,
+  className,
   side = "bottom",
   sideOffset = 4,
-  className,
   ...props
 }: WithClassName<React.ComponentProps<typeof MenuContent>>) {
   return (
     <MenuContent
       align={align}
       alignOffset={alignOffset}
-      side={side}
-      sideOffset={sideOffset}
       className={cn(
         "cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) w-(--anchor-width) min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-none bg-popover text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 outline-none data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:overflow-hidden data-closed:fade-out-0 data-closed:zoom-out-95",
         className
       )}
+      side={side}
+      sideOffset={sideOffset}
       {...props}
     />
   );
@@ -68,11 +68,11 @@ function DropdownMenuLabel({
 }) {
   return (
     <MenuGroupLabel
-      data-inset={inset}
       className={cn(
         "px-2 py-2 text-xs text-muted-foreground data-inset:pl-7",
         className
       )}
+      data-inset={inset}
       {...props}
     />
   );
@@ -89,12 +89,12 @@ function DropdownMenuItem({
 }) {
   return (
     <MenuItem
-      data-inset={inset}
-      destructive={variant === "destructive"}
       className={cn(
         "group/dropdown-menu-item relative flex cursor-default items-center gap-2 rounded-none px-2 py-2 text-xs outline-hidden select-none data-destructive:text-destructive data-highlighted:bg-accent data-highlighted:text-accent-foreground not-data-destructive:data-highlighted:**:text-accent-foreground data-destructive:data-highlighted:bg-destructive/10 data-destructive:data-highlighted:text-destructive data-inset:pl-7 *:data-[slot=menu-shortcut]:ml-auto *:data-[slot=menu-shortcut]:tracking-widest *:data-[slot=menu-shortcut]:text-muted-foreground dark:data-destructive:data-highlighted:bg-destructive/20 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 data-destructive:*:[svg]:text-destructive",
         className
       )}
+      data-inset={inset}
+      destructive={variant === "destructive"}
       {...props}
     />
   );
@@ -105,25 +105,25 @@ function DropdownMenuSub(props: React.ComponentProps<typeof MenuSub>) {
 }
 
 function DropdownMenuSubTrigger({
+  children,
   className,
   inset,
-  children,
   ...props
 }: WithClassName<React.ComponentProps<typeof MenuSubTrigger>> & {
-  inset?: boolean;
   children?: React.ReactNode;
+  inset?: boolean;
 }) {
   return (
     <MenuSubTrigger
-      data-inset={inset}
       className={cn(
         "flex cursor-default items-center gap-2 rounded-none px-2 py-2 text-xs outline-hidden select-none data-highlighted:bg-accent data-highlighted:text-accent-foreground data-highlighted:**:text-accent-foreground data-inset:pl-7 data-open:bg-accent data-open:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
+      data-inset={inset}
       {...props}
     >
       {children}
-      <MenuItemIcon mirror className="ml-auto">
+      <MenuItemIcon className="ml-auto" mirror>
         <ChevronRightIcon />
       </MenuItemIcon>
     </MenuSubTrigger>
@@ -137,32 +137,32 @@ function DropdownMenuSubContent({
 }: WithClassName<React.ComponentProps<typeof MenuSubContent>>) {
   return (
     <MenuSubContent
-      sideOffset={sideOffset}
       className={cn(
         "cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) w-auto min-w-[96px] origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-none bg-popover text-popover-foreground shadow-lg ring-1 ring-foreground/10 duration-100 outline-none data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
         className
       )}
+      sideOffset={sideOffset}
       {...props}
     />
   );
 }
 
 function DropdownMenuCheckboxItem({
-  className,
   children,
+  className,
   inset,
   ...props
 }: WithClassName<React.ComponentProps<typeof MenuCheckboxItem>> & {
-  inset?: boolean;
   children?: React.ReactNode;
+  inset?: boolean;
 }) {
   return (
     <MenuCheckboxItem
-      data-inset={inset}
       className={cn(
         "relative flex cursor-default items-center gap-2 rounded-none py-2 pr-8 pl-2 text-xs outline-hidden select-none data-highlighted:bg-accent data-highlighted:text-accent-foreground data-highlighted:**:text-accent-foreground data-inset:pl-7 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
+      data-inset={inset}
       {...props}
     >
       <MenuItemIndicator className="pointer-events-none absolute right-2 flex items-center justify-center">
@@ -180,21 +180,21 @@ function DropdownMenuRadioGroup(
 }
 
 function DropdownMenuRadioItem({
-  className,
   children,
+  className,
   inset,
   ...props
 }: WithClassName<React.ComponentProps<typeof MenuRadioItem>> & {
-  inset?: boolean;
   children?: React.ReactNode;
+  inset?: boolean;
 }) {
   return (
     <MenuRadioItem
-      data-inset={inset}
       className={cn(
         "relative flex cursor-default items-center gap-2 rounded-none py-2 pr-8 pl-2 text-xs outline-hidden select-none data-highlighted:bg-accent data-highlighted:text-accent-foreground data-highlighted:**:text-accent-foreground data-inset:pl-7 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
+      data-inset={inset}
       {...props}
     >
       <MenuItemIndicator className="pointer-events-none absolute right-2 flex items-center justify-center">

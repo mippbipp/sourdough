@@ -15,34 +15,34 @@ import Header from "../components/header";
 import appCss from "../index.css?url";
 
 export interface RouterAppContext {
-  queryClient: QueryClient;
   convexQueryClient: ConvexQueryClient;
+  queryClient: QueryClient;
 }
 
 export const Route = createRootRouteWithContext<RouterAppContext>()({
+  component: RootDocument,
+
   head: () => ({
+    links: [
+      {
+        href: appCss,
+        rel: "stylesheet",
+      },
+    ],
     meta: [
       {
         // eslint-disable-next-line unicorn/text-encoding-identifier-case -- HTML meta charset must be "utf-8"
         charSet: "utf-8",
       },
       {
-        name: "viewport",
         content: "width=device-width, initial-scale=1",
+        name: "viewport",
       },
       {
         title: "My App",
       },
     ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-    ],
   }),
-
-  component: RootDocument,
 });
 
 function RootDocument() {
@@ -50,7 +50,7 @@ function RootDocument() {
 
   return (
     <ConvexProvider client={convexQueryClient.convexClient}>
-      <html lang="en" className="dark">
+      <html className="dark" lang="en">
         <head>
           <HeadContent />
         </head>

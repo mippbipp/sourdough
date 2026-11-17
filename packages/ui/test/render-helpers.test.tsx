@@ -21,7 +21,7 @@ describe("render helpers", () => {
 
     render(
       <Bubble>
-        <BubbleContent render={<button type="button" aria-label="Hi" />}>
+        <BubbleContent render={<button aria-label="Hi" type="button" />}>
           Hi
         </BubbleContent>
       </Bubble>
@@ -40,8 +40,8 @@ describe("render helpers", () => {
       <>
         <AttachmentTrigger aria-label="Open file" />
         <AttachmentTrigger
-          render={<a href="/f" aria-label="Download" />}
           aria-label="Download"
+          render={<a aria-label="Download" href="/f" />}
         />
       </>
     );

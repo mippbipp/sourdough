@@ -15,7 +15,7 @@ const TestLayer = Layer.mergeAll(
 
 const run = <const Name extends string, Input, E, R, ContextInput>(
   command: Command.Command<Name, Input, ContextInput, E, R>,
-  args: readonly string[]
+  args: ReadonlyArray<string>
 ) => Command.runWith(command, { version: "0.0.0" })(args);
 
 const lastLine = TestConsole.logLines.pipe(
@@ -113,8 +113,8 @@ layer(TestLayer)("toCommand", (it) => {
   it.effect("rejects an input field that collides with --json", () =>
     Effect.gen(function* () {
       const message = yield* Effect.try({
-        try: () => toCommand(reservedJson, { render: (output) => output }),
         catch: String,
+        try: () => toCommand(reservedJson, { render: (output) => output }),
       }).pipe(Effect.flip);
 
       assert.include(

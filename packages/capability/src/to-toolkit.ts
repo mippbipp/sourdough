@@ -42,11 +42,11 @@ type ToolOf<Cap extends AnyCapability> = Tool.Tool<
   }
 >;
 
-export type ToolsOf<Caps extends readonly AnyCapability[]> = {
+export type ToolsOf<Caps extends ReadonlyArray<AnyCapability>> = {
   readonly [Cap in Caps[number] as Cap["contract"]["name"]]: ToolOf<Cap>;
 };
 
-export interface ToolkitProjection<Caps extends readonly AnyCapability[]> {
+export interface ToolkitProjection<Caps extends ReadonlyArray<AnyCapability>> {
   readonly layer: Layer.Layer<
     Tool.HandlersFor<ToolsOf<Caps>>,
     never,
@@ -59,12 +59,11 @@ export interface ToolkitProjection<Caps extends readonly AnyCapability[]> {
  * Project capabilities onto an `effect/ai` toolkit. Serve it over MCP with
  * `McpServer.toolkit(projection.toolkit)` and provide `projection.layer`.
  */
-export const toToolkit = <const Caps extends readonly AnyCapability[]>(
+export const toToolkit = <const Caps extends ReadonlyArray<AnyCapability>>(
   capabilities: Caps
 ): ToolkitProjection<Caps> => {
   const made: unknown = Toolkit.make(...Arr.map(capabilities, toolFor));
   // SAFETY: `Toolkit.make` is variadic over a tuple of tools; `map` over the runtime array cannot carry that tuple type, so `ToolsOf<Caps>` restores it here.
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- projection boundary recovers the tool tuple type that map cannot carry.
   const toolkit = made as Toolkit.Toolkit<ToolsOf<Caps>>;
 
   const layer = toolkit.toLayer(
@@ -73,15 +72,12 @@ export const toToolkit = <const Caps extends readonly AnyCapability[]>(
 
       const handlers: Record<
         string,
-        // oxlint-disable-next-line anti-slop/no-unknown-parameters -- the toolkit decodes each tool's parameters before calling; a loop cannot name each capability's input type.
         (parameters: unknown) => Effect.Effect<unknown, unknown>
       > = {};
 
       for (const capability of capabilities) {
         // SAFETY: `AnyCapability` erased this handler's requirements to `unknown`; they are a subset of `RequirementsOf<Caps[number]>`, which `context` carries.
-        // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- projection boundary erases the handler type; RequirementsOf restores it.
         const run = capability.handler as (
-          // oxlint-disable-next-line anti-slop/no-unknown-parameters -- Toolkit decodes the parameters schema before calling this handler.
           input: unknown
         ) => Effect.Effect<unknown, unknown, RequirementsOf<Caps[number]>>;
 
@@ -103,7 +99,7 @@ export const toToolkit = <const Caps extends readonly AnyCapability[]>(
       }
 
       // SAFETY: the record is keyed by the capabilities' names, which is exactly `HandlersFrom<ToolsOf<Caps>>`.
-      // oxlint-disable-next-line typescript/no-unsafe-type-assertion, anti-slop/no-chained-type-assertions -- projection boundary: the record keyed by capability names is HandlersFrom<ToolsOf<Caps>>.
+      // oxlint-disable-next-line quality/no-chained-type-assertions -- projection boundary: the record keyed by capability names is HandlersFrom<ToolsOf<Caps>>.
       return handlers as unknown as Toolkit.HandlersFrom<ToolsOf<Caps>>;
     })
   );

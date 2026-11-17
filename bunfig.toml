@@ -5,3 +5,5 @@ env = false
 [install]
 # Skip versions published in the last 24 hours.
 minimumReleaseAge = 86400
+# Published 2026-11-18 08:40 UTC; drop this once it is a day old.
+minimumReleaseAgeExcludes = ["@nkzw/oxlint-config@3.0.0"]

@@ -1,6 +1,10 @@
 import { defineConfig } from "oxfmt";
 
 export default defineConfig({
+  arrowParens: "always",
+  bracketSameLine: false,
+  bracketSpacing: true,
+  endOfLine: "lf",
   ignorePatterns: [
     "*.md",
     "_generated",
@@ -8,24 +12,20 @@ export default defineConfig({
     "*.gen.ts",
     ".context",
     "*.toml",
-    // vendored oxlint plugin: don't reformat third-party-owned source
-    "tools/oxlint/anti-slop/**",
+    // agent tooling dirs (installed skills/hooks) are not application source
+    ".agents/**",
   ],
+  jsxSingleQuote: false,
   printWidth: 80,
-  tabWidth: 2,
-  useTabs: false,
+  quoteProps: "as-needed",
   semi: true,
   singleQuote: false,
-  quoteProps: "as-needed",
-  jsxSingleQuote: false,
-  trailingComma: "es5",
-  bracketSpacing: true,
-  bracketSameLine: false,
-  arrowParens: "always",
-  endOfLine: "lf",
   sortImports: {},
   sortTailwindcss: {
     functions: ["clsx", "cn", "cva", "tw"],
     stylesheet: "./packages/ui/src/styles/globals.css",
   },
+  tabWidth: 2,
+  trailingComma: "es5",
+  useTabs: false,
 });

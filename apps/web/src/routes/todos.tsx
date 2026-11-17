@@ -48,7 +48,7 @@ function TodosRoute() {
 
   const handleToggleTodo = async (id: Id<"todos">, completed: boolean) => {
     try {
-      await toggleTodo({ id, completed: !completed });
+      await toggleTodo({ completed: !completed, id });
     } catch {
       // Optimistic update not used; the next query refresh restores state.
     }
@@ -71,17 +71,17 @@ function TodosRoute() {
         </CardHeader>
         <CardContent>
           <form
+            className="mb-6 flex items-center space-x-2"
             onSubmit={(e) => {
               void handleAddTodo(e);
             }}
-            className="mb-6 flex items-center space-x-2"
           >
             <Input
-              value={newTodoText}
               onChange={(e) => setNewTodoText(e.target.value)}
               placeholder="Add a new task..."
+              value={newTodoText}
             />
-            <Button type="submit" disabled={newTodoText.trim() === ""}>
+            <Button disabled={newTodoText.trim() === ""} type="submit">
               Add
             </Button>
           </form>
@@ -92,35 +92,35 @@ function TodosRoute() {
             <ul className="space-y-2">
               {todos?.map((todo) => (
                 <li
-                  key={todo._id}
                   className="flex items-center justify-between rounded-md border p-2"
+                  key={todo._id}
                 >
                   <div className="flex items-center space-x-2">
                     <Checkbox
                       checked={todo.completed}
+                      id={`todo-${todo._id}`}
                       onCheckedChange={() => {
                         void handleToggleTodo(todo._id, todo.completed);
                       }}
-                      id={`todo-${todo._id}`}
                     />
                     <label
-                      htmlFor={`todo-${todo._id}`}
                       className={
                         todo.completed
                           ? "text-muted-foreground line-through"
                           : ""
                       }
+                      htmlFor={`todo-${todo._id}`}
                     >
                       {todo.text}
                     </label>
                   </div>
                   <Button
-                    variant="ghost"
-                    size="icon"
+                    aria-label="Delete todo"
                     onClick={() => {
                       void handleDeleteTodo(todo._id);
                     }}
-                    aria-label="Delete todo"
+                    size="icon"
+                    variant="ghost"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>

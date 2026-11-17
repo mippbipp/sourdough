@@ -23,27 +23,27 @@ function TooltipTrigger(
 }
 
 function TooltipContent({
-  className,
-  side = "top",
-  sideOffset = 4,
   align = "center",
   alignOffset = 0,
   children,
+  className,
+  side = "top",
+  sideOffset = 4,
   ...props
 }: Omit<
   React.ComponentProps<typeof TooltipContentPrimitive>,
   "className" | "children"
-> & { className?: string; children?: React.ReactNode }) {
+> & { children?: React.ReactNode; className?: string }) {
   return (
     <TooltipContentPrimitive
-      side={side}
-      sideOffset={sideOffset}
       align={align}
       alignOffset={alignOffset}
       className={cn(
         "z-50 inline-flex w-fit max-w-xs origin-(--transform-origin) items-center gap-1.5 overflow-visible rounded-none bg-foreground px-3 py-1.5 text-xs text-background has-data-[slot=kbd]:pr-1.5 data-instant:animate-none data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
         className
       )}
+      side={side}
+      sideOffset={sideOffset}
       {...props}
     >
       {children}

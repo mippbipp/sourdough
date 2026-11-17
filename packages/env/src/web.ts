@@ -8,11 +8,11 @@ const convexUrlSchema = (exampleHost: string) =>
 
 export function createWebEnv(runtimeEnv: Record<string, string | undefined>) {
   return createEnv({
-    clientPrefix: "VITE_",
     client: {
       VITE_CONVEX_URL: convexUrlSchema("example.convex.cloud"),
     },
-    runtimeEnv,
+    clientPrefix: "VITE_",
     emptyStringAsUndefined: true,
+    runtimeEnv,
   });
 }

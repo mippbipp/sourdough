@@ -78,7 +78,7 @@ async function openFileMenu(onAction?: OnAction) {
   await user.click(trigger);
   await settle();
 
-  return { user, trigger };
+  return { trigger, user };
 }
 
 describe("dropdown menu", () => {
@@ -86,7 +86,7 @@ describe("dropdown menu", () => {
     expect.hasAssertions();
 
     const onAction = vi.fn<OnAction>();
-    const { user, trigger } = await openFileMenu(onAction);
+    const { trigger, user } = await openFileMenu(onAction);
 
     expect(trigger.getAttribute("aria-expanded")).toBe("true");
 

@@ -12,9 +12,9 @@ import dialkitCss from "dialkit/styles.css?url";
 function toMotionTransition(transition: TransitionConfig): Transition {
   if (transition.type === "easing") {
     return {
-      type: "tween",
       duration: transition.duration,
       ease: transition.ease,
+      type: "tween",
     };
   }
 
@@ -31,28 +31,27 @@ export function MotionLab() {
     {
       entrance: {
         scale: [entrance.scale, 0.85, 1, 0.01],
-        y: [entrance.y, 0, 24, 1],
         transition: {
-          type: "easing",
           duration: entrance.transition.duration,
           ease: [...entrance.transition.ease],
+          type: "easing",
         },
+        y: [entrance.y, 0, 24, 1],
       },
       label: {
-        y: [label.y, 0, 24, 1],
         blur: [label.blur, 0, 8, 0.5],
         transition: {
+          bounce: label.transition.bounce,
           type: "spring",
           visualDuration: label.transition.visualDuration,
-          bounce: label.transition.bounce,
         },
+        y: [label.y, 0, 24, 1],
       },
-      replay: { type: "action", label: "Replay entrance" },
-      reset: { type: "action", label: "Reset to code values" },
+      replay: { label: "Replay entrance", type: "action" },
+      reset: { label: "Reset to code values", type: "action" },
     },
     {
       id: "invite-card",
-      persist: true,
       onAction: (path) => {
         if (path === "replay") {
           setEntranceRun((run) => run + 1);
@@ -62,6 +61,7 @@ export function MotionLab() {
           dial.resetValues();
         }
       },
+      persist: true,
     }
   );
 
@@ -99,20 +99,20 @@ export function MotionLab() {
           motionValues={{
             entrance: {
               scale: tuned.entrance.scale,
-              y: tuned.entrance.y,
               transition: toMotionTransition(tuned.entrance.transition),
+              y: tuned.entrance.y,
             },
             label: {
-              y: tuned.label.y,
               blur: tuned.label.blur,
               transition: toMotionTransition(tuned.label.transition),
+              y: tuned.label.y,
             },
           }}
         />
       </div>
 
       {/* React 19 hoists this into <head> */}
-      <link rel="stylesheet" href={dialkitCss} precedence="default" />
+      <link href={dialkitCss} precedence="default" rel="stylesheet" />
       <DialRoot theme="dark" />
     </main>
   );

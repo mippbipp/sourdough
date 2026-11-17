@@ -27,13 +27,13 @@ function TodoRow({ onAction }: { onAction: OnAction }) {
     <form onSubmit={(event) => event.preventDefault()}>
       <Input
         aria-label="New task"
-        value={text}
         onChange={(event) => setText(event.target.value)}
+        value={text}
       />
       <Button type="submit">Add task</Button>
       <Checkbox
-        id="todo-1"
         checked={done}
+        id="todo-1"
         onCheckedChange={() => setDone((value) => !value)}
       />
       <label htmlFor="todo-1">Water the plants</label>
@@ -82,24 +82,24 @@ describe("agent bridge", () => {
 
     const result = await agent.act({
       steps: [
-        { ref: "New task", action: "setValue", args: ["Bake bread"] },
-        { ref: String(checkbox?.ref), action: "toggle" },
+        { action: "setValue", args: ["Bake bread"], ref: "New task" },
+        { action: "toggle", ref: String(checkbox?.ref) },
         {
-          ref: "Actions for Water the plants",
           action: "press",
           args: ["Delete forever"],
+          ref: "Actions for Water the plants",
         },
       ],
     });
 
     expect({
-      error: result.error,
-      task: screen.getByRole<HTMLInputElement>("textbox", { name: "New task" })
-        .value,
       checked: screen
         .getByRole("checkbox", { name: "Water the plants" })
         .getAttribute("aria-checked"),
-    }).toStrictEqual({ error: undefined, task: "Bake bread", checked: "true" });
+      error: result.error,
+      task: screen.getByRole<HTMLInputElement>("textbox", { name: "New task" })
+        .value,
+    }).toStrictEqual({ checked: "true", error: undefined, task: "Bake bread" });
     expect(onAction).toHaveBeenCalledWith("delete", expect.anything());
   });
 });

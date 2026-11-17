@@ -13,8 +13,8 @@ export const Route = createFileRoute("/lab")({
       throw notFound();
     }
   },
-  head: () => ({ meta: [{ title: "Motion lab" }] }),
   component: import.meta.env.DEV
     ? lazyRouteComponent(() => import("../lab/motion-lab"), "MotionLab")
     : undefined,
+  head: () => ({ meta: [{ title: "Motion lab" }] }),
 });

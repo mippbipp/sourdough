@@ -126,7 +126,6 @@ sourdough/
 │   ├── layered-error/ # LayeredError<D> domain vs system errors
 ├── tools/
 │   ├── scripts/     # Repo tooling
-│   ├── oxlint/      # Vendored oxlint anti-slop plugins
 ```
 
 ## Available scripts

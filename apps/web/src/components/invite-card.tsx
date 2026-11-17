@@ -39,18 +39,18 @@ export function InviteCard({
   }, [copied]);
 
   const copyLink = () => {
-    void navigator.clipboard.writeText(link).then(
-      () => setCopied(true),
-      () => toast.error("Couldn't copy the invite link")
-    );
+    void navigator.clipboard
+      .writeText(link)
+      .then(() => setCopied(true))
+      .catch(() => toast.error("Couldn't copy the invite link"));
   };
 
   return (
     // "user" keeps opacity and blur but drops movement under reduced motion
     <MotionConfig reducedMotion="user">
       <motion.div
-        initial={{ opacity: 0, scale: entrance.scale, y: entrance.y }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
+        initial={{ opacity: 0, scale: entrance.scale, y: entrance.y }}
         transition={entrance.transition}
       >
         <Card>
@@ -73,26 +73,26 @@ export function InviteCard({
             >
               <AnimatePresence initial={false} mode="popLayout">
                 <motion.span
-                  key={copied ? "copied" : "copy"}
+                  animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
                   aria-hidden
-                  initial={{
-                    opacity: 0,
-                    y: -label.y,
-                    filter: `blur(${label.blur}px)`,
-                  }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   exit={{
+                    filter: `blur(${label.blur}px)`,
                     opacity: 0,
                     y: label.y,
-                    filter: `blur(${label.blur}px)`,
                   }}
+                  initial={{
+                    filter: `blur(${label.blur}px)`,
+                    opacity: 0,
+                    y: -label.y,
+                  }}
+                  key={copied ? "copied" : "copy"}
                   transition={label.transition}
                 >
                   {copied ? "Copied" : "Copy link"}
                 </motion.span>
               </AnimatePresence>
             </Button>
-            <span className="sr-only" aria-live="polite">
+            <span aria-live="polite" className="sr-only">
               {copied ? "Invite link copied" : ""}
             </span>
           </CardFooter>

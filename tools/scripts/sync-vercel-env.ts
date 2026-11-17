@@ -10,7 +10,7 @@ const ENV_FILES = {
   development: [".env.development"],
   preview: [".env.development"],
   production: [".env.production"],
-} satisfies Record<string, string[]>;
+} satisfies Record<string, Array<string>>;
 
 const VALID_ENVIRONMENTS = new Set(Object.keys(ENV_FILES));
 
@@ -47,9 +47,9 @@ const remainingArgs = scriptArgs.slice(
 // Split remaining args into env-file paths and passthrough Vercel CLI flags.
 // A bare token counts as a file only when it exists on disk, so flags and their
 // values (e.g. `--scope my-team`) forward correctly regardless of argument order.
-const files: string[] = [];
+const files: Array<string> = [];
 
-const passthroughArgs: string[] = [];
+const passthroughArgs: Array<string> = [];
 
 for (const arg of remainingArgs) {
   if (!arg.startsWith("-") && existsSync(arg)) {
@@ -70,7 +70,7 @@ if (envFiles.length === 0) {
 
 const env = new Map<string, string>();
 
-const missing: string[] = [];
+const missing: Array<string> = [];
 
 for (const file of envFiles) {
   if (!existsSync(file)) {
@@ -148,9 +148,9 @@ for (const [key, value] of env.entries()) {
       ...vercelArgs,
     ],
     {
+      encoding: "utf8",
       input: `${value}\n`,
       stdio: ["pipe", "inherit", "inherit"],
-      encoding: "utf8",
       // Windows resolves bunx/npx/pnpm via .cmd shims, which need a shell
       shell: process.platform === "win32",
     }

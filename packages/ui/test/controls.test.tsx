@@ -9,7 +9,7 @@ import {
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
-import type * as React from "react";
+import type { SubmitEvent } from "react";
 import { describe, expect, it, vi } from "vitest";
 
 function Todo() {
@@ -18,8 +18,8 @@ function Todo() {
   return (
     <>
       <Checkbox
-        id="todo-1"
         checked={done}
+        id="todo-1"
         onCheckedChange={() => setDone((value) => !value)}
       />
       <label htmlFor="todo-1">Water the plants</label>
@@ -34,8 +34,8 @@ function NewTodo() {
     <>
       <Input
         aria-label="New task"
-        value={text}
         onChange={(event) => setText(event.target.value)}
+        value={text}
       />
       <output>{text}</output>
     </>
@@ -47,7 +47,7 @@ describe("button", () => {
     expect.hasAssertions();
 
     render(
-      <Button variant="ghost" size="icon" aria-label="Delete todo">
+      <Button aria-label="Delete todo" size="icon" variant="ghost">
         x
       </Button>
     );
@@ -79,13 +79,13 @@ describe("button", () => {
 
     const user = userEvent.setup();
 
-    const onSubmit = vi.fn<(event: React.SubmitEvent<HTMLFormElement>) => void>(
+    const onSubmit = vi.fn<(event: SubmitEvent<HTMLFormElement>) => void>(
       (event) => event.preventDefault()
     );
 
     render(
       <form onSubmit={onSubmit}>
-        <Button type="submit" disabled>
+        <Button disabled type="submit">
           Add
         </Button>
       </form>
@@ -104,7 +104,7 @@ describe("button", () => {
   it("renders a link through render", () => {
     expect.hasAssertions();
 
-    render(<Button render={<a href="/docs" aria-label="Docs" />}>Docs</Button>);
+    render(<Button render={<a aria-label="Docs" href="/docs" />}>Docs</Button>);
 
     const link = screen.getByRole("link", { name: "Docs" });
 

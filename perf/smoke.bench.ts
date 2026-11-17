@@ -5,11 +5,11 @@ import { bench, web } from "@hona/strobe";
 
 export default bench({
   // apps/web's production build, served by `vite preview` as strobe.json's `serve` says.
-  targets: { app: web({ url: "/" }) },
   cases: {
     // The first load in a fresh browser profile until something in the page shows.
-    load: { primary: "launch.ready", launch: { until: "body *" } },
+    load: { launch: { until: "body *" }, primary: "launch.ready" },
     // The page left open for a second: main-thread work while nothing happens.
     idle: { primary: "main.work", run: ({ page }) => page.wait(1000) },
   },
+  targets: { app: web({ url: "/" }) },
 });

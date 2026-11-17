@@ -21,7 +21,7 @@ import type {
 
 export interface ToCommandOptions<Output> {
   readonly name?: string | undefined;
-  readonly positional?: readonly string[] | undefined;
+  readonly positional?: ReadonlyArray<string> | undefined;
   readonly render?: ((output: Output) => string) | undefined;
 }
 
@@ -30,7 +30,7 @@ type FieldKind = "boolean" | "json" | "literals" | "number" | "string";
 interface FieldSpec {
   readonly description: string | undefined;
   readonly kind: FieldKind;
-  readonly literals: readonly string[];
+  readonly literals: ReadonlyArray<string>;
   readonly optional: boolean;
 }
 
@@ -99,7 +99,6 @@ const describe = (field: PlainSchema): FieldSpec => {
 };
 
 // SAFETY: the flag or argument string is decoded by the field's own schema. `withSchema` types its codec with the CLI environment as decoding services; a PlainSchema needs none, which `never` satisfies.
-// oxlint-disable-next-line typescript/no-unsafe-type-assertion -- a PlainSchema needs no CLI services, which never satisfies.
 const jsonCodec = (field: PlainSchema) => Schema.fromJsonString(field) as never;
 
 const flagFor = (name: string, field: PlainSchema): Flag.Flag<unknown> => {
@@ -205,7 +204,6 @@ export const toCommand = <Cap extends AnyCapability>(
   );
 
   // SAFETY: `Cap extends AnyCapability` widens the handler's channels to `unknown`; the extractors recover the concrete ones from `Cap`.
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- projection boundary erases the handler channels; the Cap extractors restore them.
   const run = capability.handler as (
     input: InputOf<Cap>["Type"]
   ) => Effect.Effect<
