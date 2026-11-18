@@ -5,6 +5,7 @@
     "experimentalTaskCommand": true,
   },
   "ui": "tui",
+  "agentGuidance": false,
   "globalEnv": ["VERCEL_ENV"], // set in .envrc
   "tasks": {
     "build": {
