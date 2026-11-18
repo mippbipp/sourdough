@@ -20,22 +20,10 @@ import {
 } from "@sourdough/ui/components/tooltip";
 import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { checkPattern } from "@ui-sdk/core/testing";
+import { checkPattern, settle } from "@ui-sdk/core/testing";
 import { describe, expect, it, vi } from "vitest";
 
 type OnAction = (value: string) => void;
-
-// ui-sdk names a tooltip's trigger and moves focus into an opened menu a
-// frame after the event.
-const settle = () =>
-  act(
-    () =>
-      new Promise<void>((resolve) => {
-        requestAnimationFrame(() => {
-          setTimeout(resolve, 0);
-        });
-      })
-  );
 
 function FileMenu({ onAction }: { onAction?: OnAction }) {
   return (
@@ -76,7 +64,7 @@ async function openFileMenu(onAction?: OnAction) {
   const trigger = screen.getByRole("button", { name: "File" });
 
   await user.click(trigger);
-  await settle();
+  await act(settle);
 
   return { trigger, user };
 }
@@ -178,7 +166,7 @@ describe("dropdown menu", () => {
       </DropdownMenu>
     );
     await user.click(screen.getByRole("button", { name: "Edit" }));
-    await settle();
+    await act(settle);
 
     await expect(
       checkPattern(screen.getByRole("menu"), "menu")
@@ -200,7 +188,7 @@ describe("tooltip", () => {
         <TooltipContent side="bottom">Archive</TooltipContent>
       </Tooltip>
     );
-    await settle();
+    await act(settle);
     await user.tab();
 
     const tooltip = screen.getByRole("tooltip");

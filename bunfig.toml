@@ -1,9 +1,3 @@
 # dotenvx owns the .env files. Bun's auto-load would put their encrypted
 # values into process.env, where they shadow the values dotenvx decrypts.
 env = false
-
-[install]
-# Skip versions published in the last 24 hours.
-minimumReleaseAge = 86400
-# Published 2026-11-18 08:40 UTC; drop this once it is a day old.
-minimumReleaseAgeExcludes = ["@nkzw/oxlint-config@3.0.0"]
